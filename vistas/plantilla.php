@@ -8,7 +8,16 @@
     <?php include "./vistas/inc/links.php";?>
 </head>
 <body>
-	
+	<?php 
+		$peticionAjax=false;
+		require_once "./controladores/vistasControlador.php";
+		$IV = new VistasControlador();
+		$vistas = $IV->obtener_vistas_controlador();
+
+		if($vistas==='login' || $vistas==='404'){
+			require_once './vistas/contenidos/'.$vistas.'-vista.php';
+		}else{
+	?>
 	<!-- Main container -->
 	<main class="full-box main-container">
 		<!-- Nav lateral -->
@@ -16,9 +25,15 @@
 
 		<!-- Page content -->
 		<section class="full-box page-content">
-            <?php include "./vistas/inc/navBar.php";?>
+			<?php 
+				include "./vistas/inc/navBar.php";
+				include $vistas;	
+			?>
 		</section>
 	</main>
-    <?php include "./vistas/inc/script.php";?>
+	<?php 
+		}
+		include "./vistas/inc/script.php";
+		?>
 </body>
 </html>
